@@ -30,10 +30,10 @@
     "prefix": "with",
     "body": ["{{with .${1:Name}}}", "$0", "{{end}}"]
   },
-  "Insert a thing": {
+  "Insert a template directive": {
     "scope": "html,gotmpl",
     "prefix": "v",
-    "body": ["{{$0}}"]
+    "body": ["{{$1}}$0"]
   },
   "Define a go method (fn with receiver arg)": {
     "scope": "go",
@@ -47,6 +47,19 @@
   "Handle a possible error": {
     "scope": "go",
     "prefix": "herr",
-    "body": ["if err != nil {", "  $0", "}"]
+    "body": ["if err != nil {", "  $1", "}$0"]
+  },
+  "Define a middleware function": {
+    "scope": "go",
+    "prefix": "middleware",
+    "body": [
+      "func (app *application) ${1:funcName}(next http.Handler) http.Handler {",
+      "  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {"
+      "    $0",
+      "",
+      "    next.ServeHTTP(w, r)",
+      "  })",
+      "}"
+    ]
   }
 }
