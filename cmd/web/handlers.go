@@ -93,7 +93,7 @@ func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	app.sessionManager.Put(r.Context(), "flash", "Snipped successfully created!")
+	app.sessionManager.Put(r.Context(), "flash", "Snippet successfully created!")
 
 	http.Redirect(w, r, fmt.Sprintf("/snippet/view/%d", id), http.StatusSeeOther)
 }
@@ -221,4 +221,8 @@ func (app *application) userLogoutPost(w http.ResponseWriter, r *http.Request) {
 	app.sessionManager.Put(r.Context(), "flash", "You've been logged out successfully!")
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func ping(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
 }
